@@ -1821,9 +1821,11 @@
           quoteForm.style.display = 'none';
           document.getElementById('quoteSuccess').style.display = 'block';
         } else {
+          const data = await res.json().catch(() => ({}));
+          const msg = data.error || ('Error ' + res.status);
           btn.disabled = false;
           btn.textContent = 'Send My Free Quote Request 🚀';
-          alert('Something went wrong. Please try again or call us directly.');
+          alert('Submission failed: ' + msg + '\n\nPlease call us at (254) 296-8332.');
         }
       } catch {
         btn.disabled = false;
