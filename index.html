@@ -1682,11 +1682,15 @@
             <label for="message">Tell Us About Your Property</label>
             <textarea id="message" name="message" placeholder="Number of windows, stories, fleet size, surface type, preferred schedule..."></textarea>
           </div>
-          <input type="hidden" name="_next" value="https://www.wickedwashersctx.com/?sent=1" />
-          <button type="submit" class="btn-submit" aria-label="Submit free quote request">
+          <button type="submit" class="btn-submit" id="quoteSubmitBtn" aria-label="Submit free quote request">
             Send My Free Quote Request 🚀
           </button>
         </form>
+        <div id="quoteSuccess" style="display:none;text-align:center;padding:40px 24px;border-radius:14px;border:1.5px solid rgba(34,201,122,0.4);background:rgba(34,201,122,0.07);">
+          <div style="font-size:2.8rem;margin-bottom:14px;">✅</div>
+          <h4 style="font-size:1.3rem;font-weight:900;color:#22C97A;margin-bottom:10px;letter-spacing:-0.02em;">Quote Request Sent!</h4>
+          <p style="color:rgba(200,210,255,0.75);font-size:0.9rem;line-height:1.6;max-width:360px;margin:0 auto;">We got your request and will reply within one business day. We look forward to taking care of your property!</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1797,6 +1801,36 @@
       item.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
     }
+  }
+
+  /* ─ Quote form AJAX submission ─ */
+  const quoteForm = document.querySelector('.quote-form form');
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('quoteSubmitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const res = await fetch('https://formspree.io/f/xeerdwby', {
+          method: 'POST',
+          body: new FormData(quoteForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          quoteForm.style.display = 'none';
+          document.getElementById('quoteSuccess').style.display = 'block';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Send My Free Quote Request 🚀';
+          alert('Something went wrong. Please try again or call us directly.');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Send My Free Quote Request 🚀';
+        alert('Network error. Please check your connection and try again.');
+      }
+    });
   }
 
   /* ─ Scroll reveal ─ */
