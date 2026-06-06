@@ -224,6 +224,29 @@
       transition: color 0.2s;
     }
     .nav-links a:hover, .nav-links a:focus-visible { color: var(--cyan); }
+    .nav-dropdown { position:relative; }
+    .dropdown-menu {
+      position:absolute;top:calc(100% + 8px);left:50%;
+      transform:translateX(-50%) translateY(-6px);
+      background:#0d1330;border:1px solid rgba(77,200,245,0.15);
+      border-radius:12px;padding:8px;min-width:220px;
+      opacity:0;visibility:hidden;
+      transition:opacity 0.18s ease,transform 0.18s ease,visibility 0.18s;
+      box-shadow:0 16px 48px rgba(0,0,0,0.5);z-index:200;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu {
+      opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);
+    }
+    .dropdown-menu a {
+      display:flex;align-items:center;gap:10px;
+      padding:9px 14px;border-radius:8px;
+      color:rgba(180,195,240,0.85);font-size:0.81rem;font-weight:500;
+      text-decoration:none;letter-spacing:0.02em;
+      transition:background 0.15s,color 0.15s;
+    }
+    .dropdown-menu a:hover { background:rgba(77,200,245,0.1);color:#fff; }
+    .dm-icon { font-size:1rem; }
     .btn-nav {
       background: linear-gradient(135deg, var(--pink) 0%, #B8104E 100%);
       color:#fff; padding:10px 22px; border-radius:8px;
@@ -819,10 +842,18 @@
       <img src="Brand_assets/W.W Logo 2.PNG" alt="Wicked Washers CTX logo — Waco TX exterior cleaning" width="180" height="62" loading="eager" />
     </a>
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#commercial">Commercial</a></li>
-      <li><a href="#residential">Residential</a></li>
+      <li class="nav-dropdown"><a href="#services">Services</a>
+        <div class="dropdown-menu">
+          <a href="soft-washing.html"><span class="dm-icon">🏠</span> Soft Washing</a>
+          <a href="roof-washing.html"><span class="dm-icon">🏚️</span> Roof Washing</a>
+          <a href="pressure-washing.html"><span class="dm-icon">💥</span> Pressure Washing</a>
+          <a href="window-cleaning.html"><span class="dm-icon">🪟</span> Window Cleaning</a>
+          <a href="fleet-washing.html"><span class="dm-icon">🚛</span> Fleet Washing</a>
+          <a href="holiday-lighting.html"><span class="dm-icon">🎄</span> Holiday Lighting</a>
+        </div>
+      </li>
       <li><a href="#plans">Plans</a></li>
+      <li><a href="blog.html">Blog</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -835,9 +866,13 @@
     </button>
   </div>
   <div class="mobile-nav" id="mobileNav" role="menu">
-    <a href="#services" onclick="closeMenu()" role="menuitem">Services</a>
-    <a href="#commercial" onclick="closeMenu()" role="menuitem">Commercial</a>
-    <a href="#residential" onclick="closeMenu()" role="menuitem">Residential</a>
+    <a href="soft-washing.html" onclick="closeMenu()" role="menuitem">🏠 Soft Washing</a>
+    <a href="roof-washing.html" onclick="closeMenu()" role="menuitem">🏚️ Roof Washing</a>
+    <a href="pressure-washing.html" onclick="closeMenu()" role="menuitem">💥 Pressure Washing</a>
+    <a href="window-cleaning.html" onclick="closeMenu()" role="menuitem">🪟 Window Cleaning</a>
+    <a href="fleet-washing.html" onclick="closeMenu()" role="menuitem">🚛 Fleet Washing</a>
+    <a href="holiday-lighting.html" onclick="closeMenu()" role="menuitem">🎄 Holiday Lighting</a>
+    <a href="blog.html" onclick="closeMenu()" role="menuitem">Blog</a>
     <a href="#plans" onclick="closeMenu()" role="menuitem">Plans</a>
     <a href="#faq" onclick="closeMenu()" role="menuitem">FAQ</a>
     <a href="#quote" onclick="closeMenu()" role="menuitem">Get Free Quote</a>
@@ -947,7 +982,7 @@
           <span class="svc-tag">Algae Removal</span>
           <span class="svc-tag">Mold Treatment</span>
         </div>
-        <a href="#quote" class="svc-link" aria-label="Get a soft washing quote">Request Soft Wash Quote →</a>
+        <a href="soft-washing.html" class="svc-link" aria-label="Get a soft washing quote">Learn More About Soft Washing →</a>
       </article>
 
       <!-- 2: PRESSURE CLEANING -->
@@ -966,7 +1001,7 @@
           <span class="svc-tag svc-tag-pink">Retaining Walls</span>
           <span class="svc-tag svc-tag-pink">Brick &amp; Pavers</span>
         </div>
-        <a href="#quote" class="svc-link svc-link-pink" aria-label="Get a pressure cleaning quote">Request Pressure Wash Quote →</a>
+        <a href="pressure-washing.html" class="svc-link svc-link-pink" aria-label="Get a pressure cleaning quote">Learn More About Pressure Washing →</a>
       </article>
 
       <!-- 3: WINDOW CLEANING -->
@@ -984,7 +1019,7 @@
           <span class="svc-tag">Screen Cleaning</span>
           <span class="svc-tag">Track &amp; Sill Detail</span>
         </div>
-        <a href="#quote" class="svc-link" aria-label="Get a window cleaning quote">Request Window Clean Quote →</a>
+        <a href="window-cleaning.html" class="svc-link" aria-label="Get a window cleaning quote">Learn More About Window Cleaning →</a>
       </article>
 
       <!-- 4: FLEET WASHING -->
@@ -1004,7 +1039,7 @@
           <span class="svc-tag svc-tag-green">Commercial Fleets</span>
           <span class="svc-tag svc-tag-green">On-Site Service</span>
         </div>
-        <a href="#quote" class="svc-link svc-link-green" aria-label="Get a fleet washing quote">Request Fleet Wash Quote →</a>
+        <a href="fleet-washing.html" class="svc-link svc-link-green" aria-label="Get a fleet washing quote">Learn More About Fleet Washing →</a>
       </article>
 
       <!-- 5: HOLIDAY LIGHTING -->
@@ -1023,7 +1058,7 @@
           <span class="svc-tag svc-tag-gold">Commercial Displays</span>
           <span class="svc-tag svc-tag-gold">Takedown &amp; Storage</span>
         </div>
-        <a href="#quote" class="svc-link svc-link-gold" aria-label="Get a holiday lighting quote">Request Holiday Lighting Quote →</a>
+        <a href="holiday-lighting.html" class="svc-link svc-link-gold" aria-label="Get a holiday lighting quote">Learn More About Holiday Lighting →</a>
       </article>
 
       <!-- 6: BUNDLE CTA CARD -->
@@ -1722,12 +1757,12 @@
         <div class="footer-col">
           <h4>Services</h4>
           <ul>
-            <li><a href="#services">Soft Washing</a></li>
-            <li><a href="#services">Roof Soft Washing</a></li>
-            <li><a href="#services">Pressure Cleaning</a></li>
-            <li><a href="#services">Window Cleaning</a></li>
-            <li><a href="#services">Fleet Washing</a></li>
-            <li><a href="#services">Holiday Lighting</a></li>
+            <li><a href="soft-washing.html">Soft Washing</a></li>
+            <li><a href="roof-washing.html">Roof Washing</a></li>
+            <li><a href="pressure-washing.html">Pressure Washing</a></li>
+            <li><a href="window-cleaning.html">Window Cleaning</a></li>
+            <li><a href="fleet-washing.html">Fleet Washing</a></li>
+            <li><a href="holiday-lighting.html">Holiday Lighting</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1747,6 +1782,15 @@
             <li><a href="#plans">Seasonal Plan</a></li>
             <li><a href="#plans">Annual Maintenance</a></li>
             <li><a href="#quote">Request a Quote</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Blog</h4>
+          <ul>
+            <li><a href="blog-soft-wash-frequency.html">How Often to Soft Wash</a></li>
+            <li><a href="blog-pressure-vs-soft.html">Pressure vs Soft Wash</a></li>
+            <li><a href="blog-roof-cleaning-waco.html">Roof Cleaning Guide</a></li>
+            <li><a href="blog.html">All Articles</a></li>
           </ul>
         </div>
         <div class="footer-col">
