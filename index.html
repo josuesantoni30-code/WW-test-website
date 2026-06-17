@@ -416,6 +416,8 @@
     .plan-card.featured .plan-features li { color: rgba(255,255,255,0.82); border-bottom-color: rgba(255,255,255,0.1); }
     .plan-check { color: var(--blue-dark); font-weight: 700; flex-shrink: 0; }
     .plan-card.featured .plan-check { color: var(--blue); }
+    .plan-x { color: var(--text-muted); font-weight: 700; flex-shrink: 0; opacity: 0.5; }
+    .plan-card.featured .plan-x { color: rgba(255,255,255,0.35); opacity: 1; }
     .btn-quote {
       display: block; text-align: center;
       background: var(--navy); color: #fff;
@@ -912,60 +914,58 @@
 <!-- PLANS -->
 <section class="section-pad" id="plans" aria-labelledby="plans-h">
   <div class="section-inner">
-    <span class="section-label">Maintenance Plans</span>
-    <h2 class="section-title" id="plans-h">Pick a Plan. Save More. Stay Spotless.</h2>
-    <p class="section-sub">No pricing surprises &mdash; every quote is custom-fit to your property. Choose your plan, request a quote, and we handle the rest.</p>
+    <span class="section-label">Window Cleaning Plans</span>
+    <h2 class="section-title" id="plans-h">MiNT Plans &mdash; More You Commit,<br/>More You Get.</h2>
+    <p class="section-sub">Our MiNT window cleaning plans reward loyalty. The more often you schedule, the more discounts and exclusive bonuses you unlock.</p>
 
     <div class="savings-banner" role="complementary">
       <div>
-        <h3>Save Up to 30% with Our Annual Maintenance Plan</h3>
-        <p>Lock in year-round service across all 6 offerings at a fixed, discounted rate. No surprises, no contract headaches.</p>
+        <h3>Unlock $100 OFF + 4 Exclusive Bonuses</h3>
+        <p>Book our Quarterly MiNT Plan and get our full suite of bonuses &mdash; RainBlock Technology, 7 Day Rain Guarantee, Hard Water Removal, and more.</p>
       </div>
-      <a href="#quote">Claim This Offer &rarr;</a>
+      <a href="#quote">Get Started &rarr;</a>
     </div>
 
     <div class="plans-grid">
       <article class="plan-card reveal-ready" aria-labelledby="plan-onetime">
-        <div class="plan-badge">One-Time Service</div>
-        <h3 id="plan-onetime">Single Clean</h3>
-        <p>Perfect for a fresh start, move-ins, move-outs, or post-construction cleanup.</p>
+        <div class="plan-badge">One-Time</div>
+        <h3 id="plan-onetime">1 Time</h3>
+        <p>A single professional window cleaning &mdash; no commitment required. Perfect for move-ins, special events, or a fresh start.</p>
         <ul class="plan-features">
-          <li><span class="plan-check">✓</span> Any service, one visit</li>
-          <li><span class="plan-check">✓</span> Full exterior or interior + exterior</li>
-          <li><span class="plan-check">✓</span> Streak-free guarantee</li>
-          <li><span class="plan-check">✓</span> Insured &amp; background-checked crew</li>
-          <li><span class="plan-check">✓</span> Flexible scheduling</li>
+          <li><span class="plan-x">✗</span> Discount</li>
+          <li><span class="plan-x">✗</span> FREE RainBlock Technology</li>
+          <li><span class="plan-x">✗</span> 7 Day Rain Guarantee</li>
+          <li><span class="plan-x">✗</span> FREE Hard Water Removal (5 Panes)</li>
         </ul>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:12px;font-style:italic;">No Discount or Bonus</p>
         <a href="#quote" class="btn-quote">Request a Quote</a>
       </article>
 
-      <article class="plan-card featured reveal-ready" aria-labelledby="plan-seasonal">
-        <div class="plan-badge">Most Popular</div>
-        <h3 id="plan-seasonal">Seasonal Plan</h3>
-        <p>Quarterly service keeps every surface consistently clean all year &mdash; most popular with homes and local businesses.</p>
+      <article class="plan-card reveal-ready" aria-labelledby="plan-biannual">
+        <div class="plan-badge">Twice a Year</div>
+        <h3 id="plan-biannual">BiAnnual</h3>
+        <p>Two professional cleanings per year &mdash; spring and fall. Unlock a $50 discount on every visit.</p>
         <ul class="plan-features">
-          <li><span class="plan-check">✓</span> 4 visits per year (every season)</li>
-          <li><span class="plan-check">✓</span> Mix &amp; match services per visit</li>
-          <li><span class="plan-check">✓</span> Priority scheduling</li>
-          <li><span class="plan-check">✓</span> Pre- &amp; post-storm visits</li>
-          <li><span class="plan-check">✓</span> Discounted rate vs. one-time</li>
-          <li><span class="plan-check">✓</span> Holiday lighting add-on available</li>
+          <li><span class="plan-check">✓</span> $50 OFF</li>
+          <li><span class="plan-x">✗</span> FREE RainBlock Technology</li>
+          <li><span class="plan-x">✗</span> 7 Day Rain Guarantee</li>
+          <li><span class="plan-x">✗</span> FREE Hard Water Removal (5 Panes)</li>
         </ul>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:12px;font-style:italic;">Discount, no Bonus</p>
         <a href="#quote" class="btn-quote">Request a Quote</a>
       </article>
 
-      <article class="plan-card reveal-ready" aria-labelledby="plan-annual">
+      <article class="plan-card featured reveal-ready" aria-labelledby="plan-quarterly">
         <div class="plan-badge">Best Value</div>
-        <h3 id="plan-annual">Annual Maintenance</h3>
-        <p>Our flagship plan &mdash; up to <strong>30% savings</strong> vs. one-time rates. All 6 services eligible.</p>
+        <h3 id="plan-quarterly">Quarterly</h3>
+        <p>Four cleanings a year &mdash; one per season. Our best plan: maximum savings plus every bonus unlocked.</p>
         <ul class="plan-features">
-          <li><span class="plan-check">✓</span> 6&ndash;12 visits per year</li>
-          <li><span class="plan-check">✓</span> All services covered</li>
-          <li><span class="plan-check">✓</span> Fleet washing included</li>
-          <li><span class="plan-check">✓</span> Holiday lighting package</li>
-          <li><span class="plan-check">✓</span> First-priority scheduling</li>
-          <li><span class="plan-check">✓</span> Save up to 30% annually</li>
+          <li><span class="plan-check">✓</span> $100 OFF</li>
+          <li><span class="plan-check">✓</span> FREE RainBlock Technology</li>
+          <li><span class="plan-check">✓</span> 7 Day Rain Guarantee</li>
+          <li><span class="plan-check">✓</span> FREE Hard Water Removal (5 Panes)</li>
         </ul>
+        <p style="font-size:0.8rem;color:rgba(255,255,255,0.6);margin-top:12px;font-style:italic;">Discount + All Bonuses</p>
         <a href="#quote" class="btn-quote">Request a Quote</a>
       </article>
     </div>
