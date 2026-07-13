@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tavola — The Definitive US Pasta Rankings</title>
+<meta name="description" content="Tavola ranks the top 10 pasta restaurants in America's best food cities, from Carbone to Cortina." />
+<link rel="stylesheet" href="css/pasta-ratings.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --tomato: #C1432B;
+    --tomato-dark: #8E2F1E;
+    --tomato-light: #E8714F;
+    --basil: #4B6B3A;
+    --basil-dark: #384F2B;
+    --cream: #F7EFE1;
+    --cream-2: #EFE3CC;
+    --charcoal: #241C17;
+    --charcoal-2: #382C24;
+    --gold: #C89B3C;
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+  }
+  .font-display { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; }
+
+  /* grain texture overlay */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .shadow-card {
+    box-shadow:
+      0 1px 2px rgba(36,28,23,0.05),
+      0 6px 16px -6px rgba(193,67,43,0.16),
+      0 18px 32px -16px rgba(36,28,23,0.22);
+  }
+  .shadow-card-hover {
+    box-shadow:
+      0 2px 4px rgba(36,28,23,0.06),
+      0 10px 24px -6px rgba(193,67,43,0.24),
+      0 28px 48px -16px rgba(36,28,23,0.3);
+  }
+  .shadow-float {
+    box-shadow:
+      0 2px 6px rgba(36,28,23,0.12),
+      0 14px 30px -8px rgba(0,0,0,0.35);
+  }
+
+  .transition-spring {
+    transition-property: transform, opacity, box-shadow, background-color, border-color, color;
+    transition-duration: 320ms;
+    transition-timing-function: var(--ease-spring);
+  }
+
+  .tab-btn[aria-selected="true"] {
+    background: var(--tomato);
+    color: var(--cream);
+    border-color: var(--tomato);
+  }
+  .tab-btn[aria-selected="true"] .tab-count {
+    color: rgba(247,239,225,0.75);
+  }
+
+  .card-enter {
+    animation: cardIn 480ms var(--ease-spring) backwards;
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  ::selection { background: var(--tomato); color: var(--cream); }
+
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--cream), 0 0 0 5px var(--tomato);
+  }
+
+  .score-badge {
+    background: radial-gradient(circle at 30% 25%, var(--tomato-light), var(--tomato) 55%, var(--tomato-dark) 100%);
+  }
+
+  .hero-bg {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(193,67,43,0.55), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 85% 30%, rgba(75,107,58,0.45), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 50% 100%, rgba(200,155,60,0.25), transparent 60%),
+      linear-gradient(180deg, var(--charcoal) 0%, var(--charcoal-2) 100%);
+  }
+
+  .rank-num {
+    -webkit-text-stroke: 1.5px rgba(247,239,225,0.9);
+    color: transparent;
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 bg-cream/90 backdrop-blur border-b border-charcoal/10">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="#top" class="focus-ring rounded-sm flex items-center gap-2 group">
+      <span class="font-display text-2xl font-bold tracking-tight text-tomato group-hover:text-tomato-dark transition-spring">Tavola</span>
+      <span class="hidden sm:inline text-[11px] uppercase tracking-[0.18em] text-charcoal/50 font-semibold border-l border-charcoal/15 pl-2">Pasta Rankings</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-charcoal/70">
+      <a href="#rankings" class="hover:text-tomato transition-spring focus-ring rounded-sm">Rankings</a>
+      <a href="#method" class="hover:text-tomato transition-spring focus-ring rounded-sm">Methodology</a>
+    </nav>
+    <a href="#rankings" class="focus-ring inline-flex items-center rounded-full bg-charcoal text-cream text-sm font-semibold px-4 py-2 hover:bg-tomato active:scale-95 transition-spring">
+      See Top 10s
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="relative overflow-hidden hero-bg grain">
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-20 sm:pt-24 sm:pb-28">
+    <p class="text-[11px] sm:text-xs uppercase tracking-[0.3em] text-gold font-semibold mb-5">America, one noodle at a time</p>
+    <h1 class="font-display text-cream font-black leading-[0.95] tracking-[-0.03em] text-5xl sm:text-6xl lg:text-7xl max-w-3xl">
+      The best pasta in America, ranked city by city.
+    </h1>
+    <p class="mt-6 max-w-xl text-cream/70 text-base sm:text-lg leading-[1.7]">
+      Tavola is a running leaderboard of the ten restaurants worth crossing town for in every great American food city — from hand-pinched agnolotti to Sunday-gravy rigatoni.
+    </p>
+    <div class="mt-9 flex flex-wrap items-center gap-3">
+      <a href="#rankings" class="focus-ring inline-flex items-center gap-2 rounded-full bg-tomato text-cream font-semibold px-6 py-3.5 shadow-float hover:bg-tomato-light hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-spring">
+        Browse the rankings
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <span id="hero-city-count" class="text-cream/50 text-sm"></span>
+    </div>
+  </div>
+  <div class="absolute -bottom-1 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-cream"></div>
+</section>
+
+<!-- METHOD STRIP -->
+<section id="method" class="max-w-6xl mx-auto px-5 sm:px-8 -mt-6 sm:-mt-8 relative z-10">
+  <div class="bg-charcoal text-cream rounded-2xl px-6 sm:px-8 py-6 sm:py-7 shadow-card grid sm:grid-cols-3 gap-6 sm:gap-8">
+    <div>
+      <p class="font-display text-2xl font-bold text-gold">60</p>
+      <p class="text-sm text-cream/60 mt-1 leading-[1.6]">Restaurants ranked across six cities, refreshed each season.</p>
+    </div>
+    <div>
+      <p class="font-display text-2xl font-bold text-gold">Editorial</p>
+      <p class="text-sm text-cream/60 mt-1 leading-[1.6]">Scores reflect Tavola's tasting-panel consensus, not a live review-aggregator feed.</p>
+    </div>
+    <div>
+      <p class="font-display text-2xl font-bold text-gold">Check ahead</p>
+      <p class="text-sm text-cream/60 mt-1 leading-[1.6]">Restaurants change hands and hours — confirm before you plan a trip around one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RANKINGS -->
+<section id="rankings" class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-20 pb-6">
+  <div class="max-w-2xl">
+    <p class="text-xs uppercase tracking-[0.25em] text-tomato font-bold mb-3">Pick a city</p>
+    <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-[-0.02em] text-charcoal">Top 10 Pasta Restaurants</h2>
+  </div>
+
+  <!-- city tabs -->
+  <div id="city-tabs" role="tablist" aria-label="Select a city" class="mt-8 flex flex-wrap gap-2.5"></div>
+</section>
+
+<!-- LIST -->
+<section class="max-w-6xl mx-auto px-5 sm:px-8 pb-24">
+  <div id="city-heading" class="mb-6 flex items-baseline justify-between gap-4 flex-wrap"></div>
+  <ol id="restaurant-list" class="flex flex-col gap-4"></ol>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-charcoal text-cream/60">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <div>
+      <span class="font-display text-xl font-bold text-cream">Tavola</span>
+      <p class="text-sm mt-2 max-w-md leading-[1.7]">Rankings are editorial opinion, curated for craft and consistency of pasta, not a substitute for live reservation or review data.</p>
+    </div>
+    <p class="text-sm">&copy; 2026 Tavola. Buon appetito.</p>
+  </div>
+</footer>
+
+<script>
+  const DATA = {
+    "New York City": [
+      { name: "Carbone", neighborhood: "Greenwich Village", dish: "Spicy Rigatoni Vodka", price: "$$$$", score: 9.6, blurb: "The red-sauce icon that made vodka rigatoni a cultural event — theatrical tableside service, decades-deep recipe." },
+      { name: "Rezdôra", neighborhood: "Flatiron", dish: "Tortelli d'Erbette", score: 9.5, price: "$$$$", blurb: "Emilia-Romagna technique taken deadly seriously — a rotating sfoglia tasting that rewards regulars." },
+      { name: "Lilia", neighborhood: "Williamsburg", dish: "Mafaldini", score: 9.3, price: "$$$", blurb: "Missy Robbins' airy dining room and a mafaldini in garlic-lemon that launched a thousand copycats." },
+      { name: "Via Carota", neighborhood: "West Village", dish: "Cacio e Pepe", score: 9.2, price: "$$$", blurb: "No reservations, no menus online, and a cacio e pepe worth the wait on the sidewalk bench." },
+      { name: "I Sodi", neighborhood: "West Village", dish: "Lasagna Bolognese", score: 9.1, price: "$$$$", blurb: "A tiny townhouse room and a lasagna so rich it's practically a main course on its own." },
+      { name: "Don Angie", neighborhood: "West Village", dish: "Chrysanthemum Lasagna", score: 9.0, price: "$$$$", blurb: "Italian-American reinvented — the pinwheel lasagna is the most photographed pasta in the city." },
+      { name: "L'Artusi", neighborhood: "West Village", dish: "Agnolotti dei Plin", score: 8.9, price: "$$$", blurb: "A reliable West Village workhorse with a wine list built to match every plate of pasta." },
+      { name: "Misi", neighborhood: "Williamsburg", dish: "Occhi", price: "$$$", score: 8.8, blurb: "Open kitchen, visible sfoglia line, and an occhi filled with tomato and mozzarella that's become a signature." },
+      { name: "Al Coro", neighborhood: "Chelsea", dish: "Tasting Menu Pasta Course", score: 8.7, price: "$$$$", blurb: "A hushed tasting-menu room where the pasta course is the reason for the reservation." },
+      { name: "Marea", neighborhood: "Midtown", dish: "Fusilli with Octopus & Bone Marrow", score: 8.6, price: "$$$$", blurb: "Seafood-forward fine dining with a fusilli that's been on the menu, unchanged, for over a decade." }
+    ],
+    "Chicago": [
+      { name: "Monteverde", neighborhood: "West Loop", dish: "Mafaldine Bolognese", score: 9.4, price: "$$$", blurb: "Chef Sarah Grueneberg's pastificio turns out some of the most technically precise noodles in the Midwest." },
+      { name: "Pasta by Hand", neighborhood: "Wicker Park", dish: "Tagliatelle al Ragù", score: 9.1, price: "$$", blurb: "A cozy, pasta-only storefront where everything on the short menu is made that morning." },
+      { name: "Osteria Langhe", neighborhood: "Logan Square", dish: "Plin", score: 9.0, price: "$$$", blurb: "Piedmontese cooking with a plin that's consistently cited as the city's best filled pasta." },
+      { name: "Formento's", neighborhood: "West Loop", dish: "Rigatoni alla Norma", score: 8.8, price: "$$$", blurb: "Supper-club red-sauce revival with a dining room as bold as the portions." },
+      { name: "Sapori Trattoria", neighborhood: "Lincoln Park", dish: "Pappardelle al Cinghiale", score: 8.7, price: "$$$", blurb: "A neighborhood trattoria that's quietly served some of the best wild boar pappardelle in Chicago for years." },
+      { name: "RPM Italian", neighborhood: "River North", dish: "Spicy Rigatoni", score: 8.6, price: "$$$$", blurb: "A see-and-be-seen dining room that backs up the scene with genuinely well-made pasta." },
+      { name: "Balena", neighborhood: "Lincoln Park", dish: "Tagliolini Neri", score: 8.5, price: "$$$", blurb: "Wood-fired Italian with a squid-ink tagliolini that's stayed a menu constant since opening." },
+      { name: "Tortello", neighborhood: "Logan Square", dish: "Casoncelli", score: 8.4, price: "$$", blurb: "A casual pasta bar from Cibo Matto alumni, built entirely around fresh, filled shapes." },
+      { name: "Coco Pazzo", neighborhood: "River North", dish: "Pappardelle with Duck Ragù", score: 8.3, price: "$$$", blurb: "A long-running Tuscan institution that helped define upscale Italian in Chicago." },
+      { name: "Piccolo Sogno", neighborhood: "Near West Side", dish: "Garganelli", score: 8.2, price: "$$$", blurb: "A leafy patio and a garganelli menu that changes with what's arriving from the farmers market." }
+    ],
+    "San Francisco": [
+      { name: "Flour + Water", neighborhood: "Mission", dish: "Seasonal Tasting Pasta", score: 9.4, price: "$$$", blurb: "The restaurant that put modern Bay Area pasta on the map, still booked out weeks in advance." },
+      { name: "Cotogna", neighborhood: "Jackson Square", dish: "Garganelli alla Bolognese", score: 9.1, price: "$$$", blurb: "Rustic, wood-fired Italian from the Quince team, with a bolognese regulars order on repeat." },
+      { name: "SPQR", neighborhood: "Fillmore", dish: "Tagliatelle with Wild Boar", score: 9.0, price: "$$$", blurb: "Small, focused, and precise — SPQR treats its short pasta list like a tasting menu." },
+      { name: "Quince", neighborhood: "Jackson Square", dish: "Squid Ink Chitarra", score: 8.9, price: "$$$$", blurb: "Three-Michelin-star fine dining where a single pasta course can steal the whole tasting menu." },
+      { name: "A16", neighborhood: "Marina", dish: "Garganelli alla Bolognese", score: 8.8, price: "$$$", blurb: "Southern Italian by way of the Marina, with a wood-fired oven and a pasta list to match its pizza fame." },
+      { name: "Che Fico", neighborhood: "NoPa", dish: "Cacio e Pepe with Uni", score: 8.7, price: "$$$", blurb: "A loud, design-forward room known for playful, ingredient-driven riffs on classic shapes." },
+      { name: "Delfina", neighborhood: "Mission", dish: "Spaghetti with Tomato & Basil", score: 8.6, price: "$$$", blurb: "The neighborhood trattoria every San Franciscan pasta list starts with — simple, seasonal, consistent." },
+      { name: "Bellota", neighborhood: "SoMa", dish: "Fideuà-style Noodles", score: 8.4, price: "$$$", blurb: "Spanish-Italian crossover in a plant-filled greenhouse dining room." },
+      { name: "Perbacco", neighborhood: "Financial District", dish: "Agnolotti dal Plin", score: 8.3, price: "$$$", blurb: "Piedmontese fine dining favored by the FiDi lunch crowd, with a plin worth the trip alone." },
+      { name: "Acquerello", neighborhood: "Polk Gulch", dish: "Tortelli with Foie Gras", score: 8.2, price: "$$$$", blurb: "A two-Michelin-star converted chapel serving some of the city's most refined tasting-menu pasta." }
+    ],
+    "Los Angeles": [
+      { name: "Bestia", neighborhood: "Arts District", dish: "Bavette Cacio e Pepe", score: 9.5, price: "$$$", blurb: "The reservation everyone still fights for — an open kitchen turning out relentlessly good housemade pasta." },
+      { name: "Felix Trattoria", neighborhood: "Venice", dish: "Tagliarini al Limone", score: 9.3, price: "$$$", blurb: "Evan Funke's glass-walled pasta lab, where sfoglia is rolled by hand in full view of the dining room." },
+      { name: "Jon & Vinny's", neighborhood: "Fairfax / Venice", dish: "Spicy Alla Vodka", score: 9.0, price: "$$", blurb: "Casual, red-and-white-checkered, and reliably crowded for a vodka pasta that's become an LA staple." },
+      { name: "Rossoblu", neighborhood: "Downtown", dish: "Tortellini in Brodo", score: 8.9, price: "$$$", blurb: "Emilia-Romagna cooking downtown, with a tortellini in brodo built on a decades-old family recipe." },
+      { name: "Angelini Osteria", neighborhood: "Beverly Grove", dish: "Lasagna Verde", score: 8.8, price: "$$$", blurb: "A quiet, unchanging classic that's been serving the same beloved lasagna verde for over 20 years." },
+      { name: "Officine Brera", neighborhood: "Arts District", dish: "Casoncelli alla Bergamasca", score: 8.6, price: "$$$", blurb: "A cavernous industrial space with a Lombardy-leaning menu and consistently excellent filled pasta." },
+      { name: "Dama", neighborhood: "Downtown", dish: "Cacio e Pepe with Bottarga", score: 8.5, price: "$$$", blurb: "A rooftop-adjacent Italian spot with a bottarga-dusted cacio e pepe that's become a local favorite." },
+      { name: "Osteria Mozza", neighborhood: "Hollywood", dish: "Orecchiette with Sausage", score: 8.5, price: "$$$", blurb: "Mozza's more refined half — Nancy Silverton's orecchiette remains a Hollywood dinner staple." },
+      { name: "Sotto", neighborhood: "Pico-Robertson", dish: "Cavatelli alla Norcina", score: 8.3, price: "$$$", blurb: "Southern Italian in a subterranean brick room, with a sausage-and-truffle cavatelli worth the drive." },
+      { name: "Simone", neighborhood: "Arts District", dish: "Seasonal Housemade Pasta", score: 8.2, price: "$$$$", blurb: "A tasting-menu newcomer where the pasta course changes weekly with what's at the market." }
+    ],
+    "Boston": [
+      { name: "Mida", neighborhood: "South End", dish: "Cacio e Pepe", score: 9.2, price: "$$", blurb: "A tiny, no-reservations spot where a bowl of cacio e pepe still draws a line out the door." },
+      { name: "SRV", neighborhood: "South End", dish: "Bigoli in Salsa", score: 9.0, price: "$$$", blurb: "Venetian-focused and wine-obsessed, with a bigoli that's a rite of passage for Boston pasta fans." },
+      { name: "Giulia", neighborhood: "Cambridge", dish: "Tagliatelle al Ragù", score: 8.9, price: "$$$", blurb: "Slow-food Emilian cooking in a Harvard Square storefront, with a ragù simmered for hours daily." },
+      { name: "Erbaluce", neighborhood: "Bay Village", dish: "Agnolotti del Plin", score: 8.8, price: "$$$$", blurb: "Refined, Piedmont-rooted fine dining with some of the most delicate filled pasta in the city." },
+      { name: "Coppa", neighborhood: "South End", dish: "Tagliatelle Bolognese", score: 8.7, price: "$$$", blurb: "A convivial enoteca from the Barbara Lynch group, built for sharing plates and second glasses of wine." },
+      { name: "Prezza", neighborhood: "North End", dish: "Pappardelle alla Bolognese", score: 8.6, price: "$$$", blurb: "A North End standard-bearer that's outlasted plenty of trendier newcomers for good reason." },
+      { name: "Bar Mezzana", neighborhood: "South End", dish: "Mafaldine with Sea Urchin", score: 8.5, price: "$$$", blurb: "Coastal Italian-American with a seafood-forward pasta list and a bright, airy dining room." },
+      { name: "Sportello", neighborhood: "Fort Point", dish: "Chitarra with Clams", score: 8.4, price: "$$$", blurb: "Diner-counter seating meets serious technique — one of Boston's most underrated pasta rooms." },
+      { name: "Nebo", neighborhood: "North End", dish: "Rigatoni alla Vodka", score: 8.2, price: "$$", blurb: "A modern North End addition with a vodka rigatoni that's earned a loyal neighborhood following." },
+      { name: "Carmelina's", neighborhood: "North End", dish: "Lobster Ravioli", score: 8.0, price: "$$$", blurb: "A North End favorite for special occasions, anchored by a lobster ravioli regulars swear by." }
+    ],
+    "Seattle": [
+      { name: "Spinasse", neighborhood: "Capitol Hill", dish: "Tajarin al Burro", score: 9.3, price: "$$$", blurb: "The Piedmont reference point for the whole Pacific Northwest — a tajarin tossed simply in butter and sage." },
+      { name: "Cortina", neighborhood: "Capitol Hill", dish: "Agnolotti dal Plin", score: 9.0, price: "$$$", blurb: "Spinasse's wood-fired sister restaurant next door, with an equally serious hand-pinched plin." },
+      { name: "Il Corvo", neighborhood: "Pioneer Square", dish: "Daily Rotating Pasta", score: 8.9, price: "$", blurb: "A cash-only lunch counter with three pastas a day and a line that starts before it opens." },
+      { name: "Altura", neighborhood: "Capitol Hill", dish: "Tasting Menu Pasta Course", score: 8.7, price: "$$$$", blurb: "A tasting-menu destination where the pasta course is built around whatever's peaking at the market." },
+      { name: "Osteria La Spiga", neighborhood: "Capitol Hill", dish: "Garganelli alla Norcina", score: 8.5, price: "$$$", blurb: "Friulian cooking with hand-rolled garganelli that's been a Capitol Hill mainstay for two decades." },
+      { name: "Barolo Ristorante", neighborhood: "Downtown", dish: "Tagliolini with Black Truffle", score: 8.3, price: "$$$", blurb: "A dressed-up downtown room favored for pre-theater dinners and a generous truffle tagliolini." },
+      { name: "Bar Cotto", neighborhood: "Central District", dish: "Bucatini all'Amatriciana", score: 8.2, price: "$$", blurb: "A relaxed enoteca from the Salumi family with a Roman-leaning pasta list and a lively bar scene." },
+      { name: "Machiavelli", neighborhood: "Capitol Hill", dish: "Penne alla Vodka", score: 8.0, price: "$$", blurb: "An old-school, dimly lit red-sauce spot that's stayed a neighborhood institution for 30-plus years." },
+      { name: "Il Nido", neighborhood: "West Seattle", dish: "Ravioli di Zucca", score: 7.9, price: "$$$", blurb: "A West Seattle neighborhood gem with a pumpkin ravioli that shows up every autumn to loyal regulars." },
+      { name: "The Pink Door", neighborhood: "Pike Place", dish: "Cioppino Pasta", score: 7.8, price: "$$$", blurb: "A Pike Place landmark with cabaret evenings and a seafood pasta built for market-fresh catch." }
+    ]
+  };
+
+  const cities = Object.keys(DATA);
+  const tabsEl = document.getElementById('city-tabs');
+  const headingEl = document.getElementById('city-heading');
+  const listEl = document.getElementById('restaurant-list');
+  const heroCount = document.getElementById('hero-city-count');
+  heroCount.textContent = `${cities.length} cities · 60 restaurants ranked`;
+
+  function placeholderImg(dish, i) {
+    const bg = i % 2 === 0 ? '#C1432B' : '#4B6B3A';
+    const label = dish.split(' ')[0];
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="${bg}"/><circle cx="100" cy="80" r="34" fill="none" stroke="#F7EFE1" stroke-width="4" opacity="0.55"/><text x="100" y="150" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#F7EFE1" text-anchor="middle">${label}</text></svg>`;
+    return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  }
+
+  function scoreColor(score) {
+    if (score >= 9) return 'var(--basil)';
+    if (score >= 8.3) return 'var(--gold)';
+    return 'var(--tomato)';
+  }
+
+  function renderTabs(active) {
+    tabsEl.innerHTML = cities.map(city => `
+      <button
+        type="button"
+        role="tab"
+        data-city="${city}"
+        aria-selected="${city === active}"
+        class="tab-btn focus-ring transition-spring rounded-full border border-charcoal/15 bg-white/70 px-4 py-2.5 text-sm font-semibold text-charcoal/80 hover:border-tomato hover:-translate-y-0.5 active:scale-95"
+      >
+        ${city} <span class="tab-count text-charcoal/40 font-normal">10</span>
+      </button>
+    `).join('');
+
+    tabsEl.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => selectCity(btn.dataset.city, { scrollTabIntoView: true }));
+    });
+  }
+
+  function renderCity(city) {
+    const list = DATA[city];
+
+    headingEl.innerHTML = `
+      <h3 class="font-display text-2xl sm:text-3xl font-bold tracking-[-0.01em] text-charcoal">${city}</h3>
+      <p class="text-sm text-charcoal/50">Ranked by Tavola's tasting panel</p>
+    `;
+
+    listEl.innerHTML = list.map((r, i) => {
+      const rank = i + 1;
+      return `
+      <li class="card-enter group relative flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center bg-white rounded-2xl p-4 sm:p-5 border border-charcoal/8 shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition-spring" style="animation-delay:${i * 45}ms">
+
+        <div class="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+          <span class="font-display rank-num text-4xl sm:text-5xl font-black w-12 shrink-0 select-none" aria-hidden="true">${rank}</span>
+
+          <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shrink-0 shadow-card">
+            <img src="${placeholderImg(r.dish, i)}" alt="${r.dish} at ${r.name}" class="w-full h-full object-cover mix-blend-multiply opacity-90" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+          </div>
+        </div>
+
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+            <h4 class="font-display text-lg sm:text-xl font-bold text-charcoal">${r.name}</h4>
+            <span class="text-xs uppercase tracking-wide text-charcoal/45 font-semibold">${r.neighborhood}</span>
+            <span class="text-xs text-gold font-bold">${r.price}</span>
+          </div>
+          <p class="mt-1.5 text-sm text-charcoal/70 leading-[1.7] max-w-2xl">${r.blurb}</p>
+          <span class="inline-flex mt-3 items-center gap-1.5 rounded-full bg-cream-2 text-charcoal/75 text-xs font-semibold px-3 py-1">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1c.6 2 2 3 3.5 3.2C8 4.9 7 6 7 7.5c0 1 .5 2 1.5 2.7C7 10 6 9 6 11 6 9 5 10 3.5 10.2 4.5 9.5 5 8.5 5 7.5 5 6 4 4.9 2.5 4.2 4 4 5.4 3 6 1z" fill="var(--tomato)"/></svg>
+            ${r.dish}
+          </span>
+        </div>
+
+        <div class="flex sm:flex-col items-center sm:items-end gap-1 sm:gap-0 self-stretch sm:self-center sm:pl-2">
+          <div class="score-badge w-14 h-14 rounded-full flex items-center justify-center shadow-card" style="background: radial-gradient(circle at 30% 25%, ${scoreColor(r.score)}, var(--charcoal-2) 130%);">
+            <span class="font-display text-cream font-bold text-lg leading-none">${r.score.toFixed(1)}</span>
+          </div>
+          <span class="text-[10px] uppercase tracking-wide text-charcoal/40 font-semibold mt-1">Tavola Score</span>
+        </div>
+      </li>
+    `;
+    }).join('');
+  }
+
+  function selectCity(city, { scrollTabIntoView = false } = {}) {
+    renderTabs(city);
+    renderCity(city);
+    if (scrollTabIntoView) {
+      tabsEl.querySelector(`[data-city="${CSS.escape(city)}"]`)?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    }
+  }
+
+  selectCity(cities[0]);
+</script>
+
+</body>
+</html>
